@@ -7,3 +7,4 @@ export const connectToDB = () => {
         useCreateIndex: true,
     } as ConnectOptions);
 };
+
