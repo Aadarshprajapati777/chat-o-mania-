@@ -1,0 +1,54 @@
+
+services:
+  api:
+    build: ./apps/api
+    ports:
+      - '3001:3000'
+    environment:
+      - DATABASE_URL=postgres://user:password@db:5432/mydb
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_REGION=${AWS_REGION}
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+    depends_on:
+      - db
+      - redis
+
+  workers:
+    build: ./apps/workers
+    environment:
+      - DATABASE_URL=postgres://user:password@db:5432/mydb
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_REGION=${AWS_REGION}
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+    depends_on:
+      - db
+      - redis
+
+  # web:
+  #   build: ./apps/web
+  #   ports:
+  #     - '3000:3000'
+  #   environment:
+  #     - NEXT_PUBLIC_API_URL=http://api:3001
+  #   depends_on:
+  #     - api
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - '5432:5432'
+
+  redis:
+    image: redis:6
+    ports:
+      - '6379:6379'
