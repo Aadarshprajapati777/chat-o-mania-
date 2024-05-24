@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { Pool } from 'pg';
 import { Queue } from 'bullmq';
-import { createProject, getProjects, getProjectById } from '@controllers/projectController';
+import { createProject, getProjects, getProjectById } from '../controllers/projectControllers';
 
 const router = Router();
 

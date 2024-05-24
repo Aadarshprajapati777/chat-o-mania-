@@ -3,6 +3,8 @@ import { Pool } from 'pg';
 import { Queue } from 'bullmq';
 import { uploadToS3 } from '../services/s3Service';
 
+
+
 export const createProject = async (req: Request, res: Response, pool: Pool, projectQueue: Queue) => {
   const { title, description } = req.body;
   const file = req.file;
@@ -31,6 +33,8 @@ try {
 
 
 
+
+
 export const getProjects = async (req: Request, res: Response, pool: Pool) => {
     try {
       const client = await pool.connect();
@@ -41,6 +45,11 @@ export const getProjects = async (req: Request, res: Response, pool: Pool) => {
       res.status(500).json({ error: error.message });
     }
   };
+
+
+
+
+
   export const getProjectById = async (req: Request, res: Response, pool: Pool) => {
     const { id } = req.params;
   
