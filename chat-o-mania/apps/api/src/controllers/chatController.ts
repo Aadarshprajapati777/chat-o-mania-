@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 
- router.post('/chat', async (req, res) => {
+ router.post('/', async (req, res) => {
   const { projectId, userQuery } = req.body;
 
   try {
