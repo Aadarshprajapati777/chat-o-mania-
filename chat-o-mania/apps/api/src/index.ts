@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import { Pool } from 'pg';
 import { Queue } from 'bullmq';
 import dotenv from 'dotenv';
+import chatRouter from './controllers/chatController';
 
 import projectRoutes from './routes/projectRoutes';
 
@@ -26,6 +27,7 @@ const projectQueue = new Queue('projectQueue', {
 });
 
 app.use('/projects', projectRoutes(pool, projectQueue));
+app.use('/chats', chatRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
