@@ -40,6 +40,7 @@ const processPDF = async (job: Job) => {
   }
 };
 
+1818
 const worker = new Worker('projectQueue', processPDF, {
   connection: {
     host: process.env.REDIS_HOST,

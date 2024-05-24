@@ -1,20 +1,22 @@
-# Use the official Node.js 14 image
 FROM node:14
 
-# Set the working directory inside the container
+# Create app directory
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json to the working directory
+# Install app dependencies
 COPY package*.json ./
 
-# Install dependencies
+# Copy the custom type definition
+# COPY src/types/express.d.ts ./src/types/
+
+# Install additional type declarations
+RUN npm install --save-dev @types/pg @types/dotenv
+
+# Install remaining dependencies
 RUN npm install
 
-# Copy the rest of the application code
+# Bundle app source
 COPY . .
 
-# Expose the port the app runs on
-EXPOSE 3000
-
-# Command to run the application
-CMD ["npm", "start"]
+# Start the app
+CMD ["npx", "ts-node", "src/index.ts"]

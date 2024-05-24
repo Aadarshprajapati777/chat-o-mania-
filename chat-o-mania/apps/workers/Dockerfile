@@ -1,17 +1,19 @@
-# Use the official Node.js 14 image
 FROM node:14
 
-# Set the working directory inside the container
+# Create app directory
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json to the working directory
+# Install app dependencies
 COPY package*.json ./
 
-# Install dependencies
+# Install additional type declarations
+RUN npm install --save-dev @types/pg @types/dotenv
+
+# Install remaining dependencies
 RUN npm install
 
-# Copy the rest of the application code
+# Bundle app source
 COPY . .
 
-# Command to run the worker
-CMD ["npm", "start"]
+# Start the worker
+CMD ["npx", "ts-node", "src/index.ts"]

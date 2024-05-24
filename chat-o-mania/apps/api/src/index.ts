@@ -3,8 +3,8 @@ import bodyParser from 'body-parser';
 import { Pool } from 'pg';
 import { Queue } from 'bullmq';
 import dotenv from 'dotenv';
+import multer from 'multer';
 import chatRouter from './controllers/chatController';
-
 import projectRoutes from './routes/projectRoutes';
 
 dotenv.config();
@@ -13,7 +13,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
-console.log(process.env.DATABASE_URL);
+
+const upload = multer({ dest: 'uploads/' }); 
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL
@@ -26,7 +27,7 @@ const projectQueue = new Queue('projectQueue', {
   }
 });
 
-app.use('/projects', projectRoutes(pool, projectQueue));
+app.use('/projects', upload.single('file'), projectRoutes(pool, projectQueue)); 
 app.use('/chats', chatRouter);
 
 app.listen(port, () => {
