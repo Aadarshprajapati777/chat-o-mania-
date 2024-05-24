@@ -41,5 +41,21 @@ export const getProjects = async (req: Request, res: Response, pool: Pool) => {
       res.status(500).json({ error: error.message });
     }
   };
+  export const getProjectById = async (req: Request, res: Response, pool: Pool) => {
+    const { id } = req.params;
   
+    try {
+      const client = await pool.connect();
+      const result = await client.query('SELECT * FROM projects WHERE id = $1', [id]);
+      client.release();
+      
+      if (result.rows.length === 0) {
+        return res.status(404).json({ message: 'Project not found' });
+      }
+      
+      res.status(200).json(result.rows[0]);
+    } catch (error:any) {
+      res.status(500).json({ error: error.message });
+    }
+  };
 
