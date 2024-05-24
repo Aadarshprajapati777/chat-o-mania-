@@ -28,3 +28,18 @@ try {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+
+export const getProjects = async (req: Request, res: Response, pool: Pool) => {
+    try {
+      const client = await pool.connect();
+      const result = await client.query('SELECT * FROM projects');
+      client.release();
+      res.status(200).json(result.rows);
+    } catch (error:any) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+  
+
