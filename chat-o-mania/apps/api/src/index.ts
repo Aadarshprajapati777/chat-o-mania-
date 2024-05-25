@@ -10,7 +10,7 @@ import projectRoutes from './routes/projectRoutes';
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 app.use(bodyParser.json());
 
@@ -26,9 +26,14 @@ const projectQueue = new Queue('projectQueue', {
     port: parseInt(process.env.REDIS_PORT as string, 10)
   }
 });
+app.get('/', (req, res) => {
+  res.send('Welcome to Chat-O-Mania!');
+}
+);
 
 app.use('/projects', upload.single('file'), projectRoutes(pool, projectQueue)); 
 app.use('/chats', chatRouter);
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
