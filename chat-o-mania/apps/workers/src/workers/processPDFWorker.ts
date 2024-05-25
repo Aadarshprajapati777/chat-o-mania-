@@ -11,6 +11,7 @@ const pool = new Pool({
 });
 
 const processPDF = async (job: Job) => {
+  console.log('Processing PDF...');
   const { projectId, fileUrl } = job.data;
 
   try {
@@ -24,6 +25,7 @@ const processPDF = async (job: Job) => {
       ['created', projectId]
     );
     const project = result.rows[0];
+    console.log("project= ", project);
 
     const embeddings = text.split(' ').map(word => ({ word }));
 

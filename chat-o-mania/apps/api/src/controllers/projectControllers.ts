@@ -8,6 +8,8 @@ import { uploadToS3 } from '../services/s3Service';
 export const createProject = async (req: Request, res: Response, pool: Pool, projectQueue: Queue) => {
   const { title, description } = req.body;
   const file = req.file;
+console.log("title= ", title);
+  console.log("file received= ", file);
 
 try {
     if (file) {
