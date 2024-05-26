@@ -5,11 +5,11 @@ import { createProject, getProjects, getProjectById } from '../controllers/proje
 
 const router = Router();
 
-const projectRoutes = (pool: Pool, projectQueue: Queue) => {
+const projectRoutes = ( projectQueue: Queue) => {
   console.log("projectRoutes called");
-  router.post('/', (req, res) => createProject(req, res, pool, projectQueue));
-  router.get('/', (req, res) => getProjects(req, res, pool));
-  router.get('/:id', (req, res) => getProjectById(req, res, pool));
+  router.post('/', (req, res) => createProject(req, res, projectQueue));
+  router.get('/', (req, res) => getProjects(req, res));
+  router.get('/:id', (req, res) => getProjectById(req, res));
   
   return router;
 };

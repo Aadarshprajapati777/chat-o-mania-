@@ -16,9 +16,9 @@ app.use(bodyParser.json());
 
 const upload = multer({ dest: 'uploads/' }); 
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL
-});
+// const pool = new Pool({
+//   connectionString: process.env.DATABASE_URL
+// });
 
 const projectQueue = new Queue('projectQueue', {
   connection: {
@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 }
 );
 
-app.use('/projects', upload.single('file'), projectRoutes(pool, projectQueue)); 
+app.use('/projects', upload.single('file'), projectRoutes(projectQueue)); 
 app.use('/chats', chatRouter);
 
 

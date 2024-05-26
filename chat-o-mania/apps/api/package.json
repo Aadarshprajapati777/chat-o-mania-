@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev" : "nodemon --exec ts-node src/index.ts",
+    "dev": "nodemon --exec ts-node src/index.ts",
     "start": "ts-node src/index.ts"
   },
   "dependencies": {
+    "@prisma/client": "^5.14.0",
     "aws-sdk": "^2.890.0",
     "axios": "^1.7.2",
-    "bullmq": "^1.33.0",
+    "bullmq": "^1.91.1",
     "express": "^4.17.1",
     "multer": "^1.4.5-lts.1",
     "pdf-parse": "^1.1.1",
@@ -27,6 +28,7 @@
     "@types/pdf-parse": "^1.1.4",
     "@types/pg": "^8.11.6",
     "nodemon": "^3.1.0",
+    "prisma": "^5.14.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^3.10.1"
   },
